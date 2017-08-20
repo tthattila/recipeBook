@@ -39,7 +39,7 @@
       <div class="row" formArrayName="ingredients">
         <!-- kell a zárójel, mert nem Stringet adok át, hanem egy számot, csak akkor nem kell, ha Stringet adok át. ez a directivenek a directive nevével megegyező propertyjére bindol -->
         <div class="col-xs-12" 
-        *ngFor="let ingredientCtrl of recipeForm.get('ingredients').controls; let index = index"
+        *ngFor="let ingredientCtrl of recipeForm.get('ingredients')['controls']; let index = index"
         style="margin-top:10px"      
         [formGroupName]="index" >
           <div class="col-xs-8">

@@ -8,8 +8,14 @@
                 <li [routerLinkActive]="'active'"><a [routerLink]="'/recipes'">Recipes</a></li>
                 <li [routerLinkActive]="'active'"><a [routerLink]="'/shopping-list'">Shopping List</a></li>
             </ul>
-            <ul class="nav navbar-right">
-                <li style="cursor:pointer;" class="dropdown" appDropdown>
+            <ul class="nav navbar-nav navbar-right"> 
+                 <!-- ha sima stringet adok át a directive propertyjének akkor nem kell a bindoláshoz a kapcsos zárójel, mint a routerLinkActive-nal -->   
+                <ng-template [ngIf]="!isAuthenticated()">
+                    <li><a [routerLinkActive]="'active'" routerLink="/signup">Register</a></li>        
+                    <li><a [routerLinkActive]="'active'" routerLink="/signin">Sign in</a></li>   
+                </ng-template>
+                <li><a style="cursor:pointer;" (click)="onLogout()" *ngIf ="isAuthenticated()">Logout</a></li>
+                <li style="cursor:pointer;" class="dropdown" appDropdown *ngIf ="isAuthenticated()">
                     <a class="dropdown-toggle" role="button">Manage <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li style="cursor:pointer;" (click)="onSaveData()" ><a>Save Data</a></li>

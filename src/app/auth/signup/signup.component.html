@@ -1,0 +1,23 @@
+<form (ngSubmit)="onRegister(form)" #form="ngForm">
+  <div class="row">
+    <div class="col-xs-6">
+      <label for="email">Email</label>
+      <input type="text" class="form-control" ngModel email required name="email" #email="ngModel">
+      <span class="help-block" *ngIf="email.invalid && email.touched">Please enter a valid email address!</span>
+    </div>    
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-xs-6">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" ngModel required name="password" #password="ngModel">
+      <span class="help-block" *ngIf="password.invalid && password.touched">Password is required!</span>
+    </div>    
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-xs-6">
+      <button [disabled]="form.invalid" type="submit" class="btn btn-primary">Register</button>
+    </div>
+  </div>
+</form>

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { DataStorageService } from "app/shared/data-storage.service";
 import { Response } from "@angular/http";
+import { AuthenticationService } from "app/auth/authentication.service";
+import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
     selector: 'app-header',
@@ -9,7 +11,10 @@ import { Response } from "@angular/http";
 })
 export class HeaderComponent {
 
-    constructor(private storeService: DataStorageService) { }
+    constructor(
+        private storeService: DataStorageService,
+        private authentication: AuthenticationService,
+        private router: Router) { }
 
     onSaveData() {
         this.storeService.saveRecipes()
@@ -20,6 +25,15 @@ export class HeaderComponent {
 
     onFetchData() {
         this.storeService.fetchRecipes();
+    }
+
+    onLogout() {
+        this.authentication.logout();
+        this.router.navigate(['/'])
+    }
+
+    isAuthenticated() {
+        return this.authentication.isAuthenticated();
     }
 
 }
