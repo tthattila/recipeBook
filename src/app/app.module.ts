@@ -21,7 +21,7 @@ import { DataStorageService } from 'app/shared/data-storage.service';
 import { SignupComponent } from './auth/signup/signup.component';
 import { SigninComponent } from './auth/signin/signin.component';
 import { AuthenticationService } from 'app/auth/authentication.service';
-import { AuthGuard } from "app/auth/auth-guard.service";
+import { AuthGuard } from 'app/auth/auth-guard.service';
 
 
 @NgModule({

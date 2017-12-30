@@ -3,7 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { RecipeService } from 'app/recipes/recipe.service';
 import { Recipe } from 'app/recipes/recipe.model';
-import { Ingredient } from "app/shared/ingredient";
+import { Ingredient } from 'app/shared/ingredient';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -34,7 +34,7 @@ export class RecipeEditComponent implements OnInit {
     let recipeName = '';
     let recipeImgPath = '';
     let description = '';
-    let ingredients = new FormArray([]);
+    const ingredients = new FormArray([]);
 
     if (this.editMode) {
       const recipe = this.recipeService.getRecipe(this.id);

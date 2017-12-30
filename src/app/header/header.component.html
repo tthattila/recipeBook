@@ -18,8 +18,10 @@
                 <li style="cursor:pointer;" class="dropdown" appDropdown *ngIf ="isAuthenticated()">
                     <a class="dropdown-toggle" role="button">Manage <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li style="cursor:pointer;" (click)="onSaveData()" ><a>Save Data</a></li>
-                        <li style="cursor:pointer;" (click)="onFetchData()" ><a>Fetch Data</a></li>
+                        <li style="cursor:pointer;" (click)="onSaveRecipes()" ><a>Save Recipes</a></li>
+                        <li style="cursor:pointer;" (click)="onFetchRecipes()" ><a>Fetch Recipes</a></li>
+                        <li style="cursor:pointer;" (click)="onSaveShoppingList()" ><a>Save Shopping List</a></li>
+                        <li style="cursor:pointer;" (click)="onFetchShoppingList()" ><a>Fetch Shopping List</a></li>
                     </ul>
                 </li>
             </ul>

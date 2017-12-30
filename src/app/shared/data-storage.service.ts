@@ -3,7 +3,9 @@ import { Http, Response } from '@angular/http';
 import { RecipeService } from 'app/recipes/recipe.service';
 import { Recipe } from 'app/recipes/recipe.model';
 import 'rxjs/Rx';
-import { AuthenticationService } from "app/auth/authentication.service";
+import { AuthenticationService } from 'app/auth/authentication.service';
+import { Ingredient } from 'app/shared/ingredient';
+import { ShoppingListService } from 'app/shopping-list/shopping-list.service';
 
 /* a http methodok observable-ekkel térnek vissza => getnél pl így lehet a visszatérési értéket kinyerni, vagy
 csak simán logolni a művelet eredményét */
@@ -12,7 +14,8 @@ csak simán logolni a művelet eredményét */
 export class DataStorageService {
     constructor(private http: Http,
         private recipeService: RecipeService,
-        private authentication: AuthenticationService) { }
+        private authentication: AuthenticationService,
+        private shoppingListService: ShoppingListService) { }
     /* firebase link + tábla neve + .json (firebase specifik cucc)
     plusz fontos, hogy kell a return statement is, nem elég csak meghívni a methodot */
     saveRecipes() {
@@ -38,4 +41,35 @@ export class DataStorageService {
             }
             );
     }
+
+    saveShoppingListToServer() {
+        const token = this.authentication.getToken();
+        return this.http.put(
+            'https://shopping-app-55933.firebaseio.com/ingredients.json?auth=' + token,
+             this.shoppingListService.getIngredients()
+            );
+    }
+
+    fetchShoppingListFromServer() {
+        const token = this.authentication.getToken();
+        this.http.get('https://shopping-app-55933.firebaseio.com/ingredients.json?auth=' + token)
+            .map(
+                (response: Response) => {
+                    const ingredients: Ingredient[] = response.json();
+                    for (let i of ingredients){
+                        if (!i['amount']) {
+                            i['amount'] = 0;
+                            console.log('Amount is missing ==> This should never run.')
+                        }
+                    }
+                    return ingredients;
+                }
+            )
+            .subscribe(
+                (ingredients: Ingredient[]) => {
+                    this.shoppingListService.setIngredients(ingredients);
+                }
+            );
+    }
+
 }

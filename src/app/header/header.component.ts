@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { DataStorageService } from "app/shared/data-storage.service";
-import { Response } from "@angular/http";
-import { AuthenticationService } from "app/auth/authentication.service";
-import { Router, ActivatedRoute } from "@angular/router";
+import { DataStorageService } from 'app/shared/data-storage.service';
+import { Response } from '@angular/http';
+import { AuthenticationService } from 'app/auth/authentication.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-header',
@@ -16,15 +16,26 @@ export class HeaderComponent {
         private authentication: AuthenticationService,
         private router: Router) { }
 
-    onSaveData() {
+    onSaveRecipes() {
         this.storeService.saveRecipes()
             .subscribe(
             (response: Response) => console.log(response)
             );
     }
 
-    onFetchData() {
+    onFetchRecipes() {
         this.storeService.fetchRecipes();
+    }
+
+    onSaveShoppingList() {
+        this.storeService.saveShoppingListToServer()
+        .subscribe(
+            (response: Response) => console.log(response)
+        );
+    }
+
+    onFetchShoppingList() {
+        this.storeService.fetchShoppingListFromServer();
     }
 
     onLogout() {
