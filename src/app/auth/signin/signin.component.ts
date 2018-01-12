@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'app/auth/authentication.service';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signin',
@@ -9,7 +10,7 @@ import { NgForm } from '@angular/forms';
 })
 export class SigninComponent implements OnInit {
 
-  constructor(private authentication: AuthenticationService) { }
+  constructor(private authentication: AuthenticationService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -18,6 +19,10 @@ export class SigninComponent implements OnInit {
     const email = form.value.email;
     const password = form.value.password;
     this.authentication.login(email, password);
+  }
+
+  onRegister(form: NgForm) {
+    this.router.navigate(['/signup']);
   }
 
 }

@@ -21,7 +21,10 @@ export class ShoppingListService {
 
     setIngredients(ingredients: Ingredient []) {
         this.ingredients = ingredients;
-        this.shoppingListChanged.next(this.ingredients);
+        if (this.ingredients === null) {
+            this.ingredients = [];
+        }
+        this.shoppingListChanged.next(this.ingredients.slice());
     }
 
     getIngredient(index: number) {

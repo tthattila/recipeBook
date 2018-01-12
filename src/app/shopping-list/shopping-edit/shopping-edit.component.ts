@@ -27,13 +27,16 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
   constructor(private shoppingListService: ShoppingListService) { }
 
   ngOnInit() {
+
+    const shoppingList = this.shoppingListService.getIngredients();
+
+    this.isShoppingListHasSize(shoppingList);
+
     this.subscritption2 = this.shoppingListService.shoppingListChanged
       .subscribe(
       (ingredients: Ingredient[]) => {
-        if (ingredients.length > 0) {
-          this.shoppingListHasSize = true;
+        this.isShoppingListHasSize(ingredients);
         }
-      }
       );
 
     this.subscription = this.shoppingListService.selectedIngredient
@@ -48,6 +51,12 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
         });
       }
       );
+  }
+
+  isShoppingListHasSize(ingredients: Ingredient[]) {
+    if (ingredients.length > 0) {
+      this.shoppingListHasSize = true;
+    }
   }
 
   onSubmit(form: NgForm) {

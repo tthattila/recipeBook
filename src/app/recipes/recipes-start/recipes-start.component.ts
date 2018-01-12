@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from 'app/auth/authentication.service';
+import { DataStorageService } from 'app/shared/data-storage.service';
+import { auth } from 'firebase';
 
 @Component({
   selector: 'app-recipes-start',
@@ -7,9 +10,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RecipesStartComponent implements OnInit {
 
-  constructor() { }
+  constructor(private auth: AuthenticationService, private store: DataStorageService) { }
 
   ngOnInit() {
+
+    if (this.auth.isAuthenticated) {
+      this.store.fetchRecipes();
+    }
   }
 
 }

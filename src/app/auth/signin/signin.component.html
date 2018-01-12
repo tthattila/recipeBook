@@ -1,5 +1,11 @@
 <form (ngSubmit)="onSignIn(form)" #form="ngForm">
   <div class="form-group">
+      <div class="row">
+          <div class="col-xs-6">
+            <h2>Welcome to Recipe Book!</h2>
+          </div>
+      </div>
+    <br>
     <div class="row">
       <div class="col-xs-6">
         <label for="email">Email</label>
@@ -20,6 +26,14 @@
       <div class="col-xs-6">
         <button [disabled]="form.invalid" type="submit" class="btn btn-primary">Sign in</button>
       </div>
+    </div>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-xs-6">
+          <h5>If you have no account yet, please register first!</h5>
+          <button class="btn btn-primary" (click)="onRegister()">Register</button>
+        </div>
     </div>
   </div>
 </form>

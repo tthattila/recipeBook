@@ -1,6 +1,6 @@
 import * as firebase from 'firebase';
 import { Injectable } from '@angular/core';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthenticationService {
@@ -11,6 +11,7 @@ export class AuthenticationService {
 
     register(email: string, password: string) {
         firebase.auth().createUserWithEmailAndPassword(email, password)
+            .then(response => this.router.navigate(['/signin']))
             .catch(error => alert(error));
     }
 

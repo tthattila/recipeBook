@@ -4,6 +4,7 @@ import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { RecipeService } from 'app/recipes/recipe.service';
 import { Recipe } from 'app/recipes/recipe.model';
 import { Ingredient } from 'app/shared/ingredient';
+import { DataStorageService } from 'app/shared/data-storage.service';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -16,7 +17,11 @@ export class RecipeEditComponent implements OnInit {
   editMode = false;
   recipeForm: FormGroup;
 
-  constructor(private activatedRoute: ActivatedRoute, private recipeService: RecipeService, private router: Router) { }
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private recipeService: RecipeService,
+    private router: Router,
+    private storeService: DataStorageService) { }
 
   ngOnInit() {
     this.activatedRoute.params
@@ -24,7 +29,6 @@ export class RecipeEditComponent implements OnInit {
       (params: Params) => {
         this.id = +params['id'];
         this.editMode = params['id'] != null;
-        console.log(this.editMode);
         this.initForm();
       }
       );
@@ -47,7 +51,8 @@ export class RecipeEditComponent implements OnInit {
             'name': new FormControl(ingredient.name, Validators.required),
             'amount': new FormControl(ingredient.amount, [
               Validators.required,
-              Validators.pattern(/^[1-9]+[0-9]*$/)
+              Validators.min(0.1),
+              Validators.max(100)
             ])
           }));
         }
@@ -68,7 +73,8 @@ export class RecipeEditComponent implements OnInit {
         'name': new FormControl(null, Validators.required),
         'amount': new FormControl(null, [
           Validators.required,
-          Validators.pattern(/^[1-9]+[0-9]*$/)
+          Validators.min(0.1),
+          Validators.max(100)
         ])
       }))
   }
@@ -86,6 +92,7 @@ export class RecipeEditComponent implements OnInit {
     } else {
       this.recipeService.addRecipe(this.recipeForm.value);
     }
+    this.storeService.saveRecipes().subscribe(response => console.log(response));
     this.recipeForm.reset();
   }
 
