@@ -11,7 +11,7 @@ export class RecipeService {
     recipesChanged = new Subject<Recipe[]>();
 
     private recipes: Recipe[] = [
-        new Recipe('Pencakes',
+        new Recipe('Pancakes',
             'In a large bowl, sift together the flour, baking powder, salt and sugar. ' +
             'Make a well in the center and pour in the milk, egg and melted butter; mix until smooth.' +
             'Heat a lightly oiled griddle or frying pan over medium high heat. Pour or scoop the batter onto the griddle,' +
